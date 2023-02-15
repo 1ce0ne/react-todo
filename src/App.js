@@ -1,6 +1,7 @@
 import { Component } from "react";
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 const date1 = new Date(2022, 7, 19, 14, 5);
 const date2 = new Date(2022, 7, 19, 15, 23);
@@ -53,9 +54,10 @@ export default class App extends Component {
     this.state.data.push(deed);
     this.setState((state) => ({}));
   }
+
   render() {
     return (
-      <div>
+      <HashRouter>
         <nav className="navbar is-light">
           <div className="navbar-brand">
             <span className="navbar-item is-uppercase">
@@ -63,13 +65,20 @@ export default class App extends Component {
             </span>
           </div>
         </nav>
+
         <main className="content px-6 mt-6">
-          <TodoList list={this.state.data} 
+          <Routes>
+            <Route path="/" element={
+              <TodoList list={this.state.data} 
                     setDone={this.setDone}
                     delete={this.delete} />
-          <TodoAdd add={this.add} />
+            } />
+            <Route path="/add" element={
+              <TodoAdd add={this.add} />
+            } />
+          </Routes>
         </main>
-      </div>
-    )
+      </HashRouter>
+    );
   }
 }
