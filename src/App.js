@@ -28,10 +28,11 @@ const initialData = [
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {data: initialData};
+    this.state = {data: initialData, showMenu: false};
     this.setDone = this.setDone.bind(this);
     this.delete = this.delete.bind(this);
     this.add = this.add.bind(this);
+    this.showMenu = this.showMenu.bind(this);
   }
 
   setDone(key) {
@@ -55,6 +56,11 @@ export default class App extends Component {
     this.setState((state) => ({}));
   }
 
+  showMenu(evt) {
+    evt.preventDefault();
+    this.setState((state) => ({ showMenu: !state.showMenu }));
+  }
+
   render() {
     return (
       <HashRouter>
@@ -69,8 +75,20 @@ export default class App extends Component {
             >
               Todos
             </NavLink>
+            <a href="/"
+               className={this.state.showMenu ?
+                          "navbar-burger is-active" :
+                          "navbar-burger"}
+                          onClick={this.showMenu}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
           </div>
-          <div className="navbar-menu">
+          <div className={this.state.showMenu ?
+                          "navbar-menu is-active" :
+                          "navbar-menu"}
+               onClick={this.showMenu}> 
             <div className="navbar-start">
               <NavLink
                 to="/add"
