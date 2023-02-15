@@ -1,7 +1,7 @@
 import { Component } from "react";
 import TodoList from './TodoList';
 import TodoAdd from './TodoAdd';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
 
 const date1 = new Date(2022, 7, 19, 14, 5);
 const date2 = new Date(2022, 7, 19, 15, 23);
@@ -60,9 +60,28 @@ export default class App extends Component {
       <HashRouter>
         <nav className="navbar is-light">
           <div className="navbar-brand">
-            <span className="navbar-item is-uppercase">
+            <NavLink
+              to="/"
+              className={ ({ isActive }) => 
+                "navbar-item is-uppercase" + 
+                  (isActive ? " is-active" : "")
+              }
+            >
               Todos
-            </span>
+            </NavLink>
+          </div>
+          <div className="navbar-menu">
+            <div className="navbar-start">
+              <NavLink
+                to="/add"
+                className={ ({ isActive }) => 
+                  "navbar-item" + (isActive ? " is-active" : "")
+
+                }
+              >
+                Создать дело
+              </NavLink>
+            </div>
           </div>
         </nav>
 
