@@ -3,6 +3,7 @@ import { Component } from "react";
 export default class TodoAdd extends Component {
   constructor(props) {
     super(props);
+    this.state = { redirect: false };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleDescChange = this.handleDescChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
