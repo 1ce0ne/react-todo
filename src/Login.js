@@ -42,13 +42,13 @@ export default class Login extends Component {
           <h1>Вход</h1>
           <form onSubmit={this.handleFormSubmit}>
             <div className='field'>
-              <lable className='label'>Адрес электронной почты</lable>
+              <label className='label'>Адрес электронной почты</label>
               <div className='control'>
                 <input type='email' className='input' onChange={this.handleEmailChange} /> 
               </div>
             </div>
             <div className='field'>
-              <lable className='label'>Пароль</lable>
+              <label className='label'>Пароль</label>
               <div className='control'>
                 <input type='password' className='input' onChange={this.handlePasswordChange} /> 
               </div>

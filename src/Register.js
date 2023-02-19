@@ -37,15 +37,6 @@ export default class Register extends Component {
     this.formData.passwordConfirm = evt.target.value;
   }
 
-  async handleFormSubmit(evt) {
-    evt.preventDefault();
-    if (this.validate()) {
-      const result = await register(this.formData.email, this.formData.password);
-      if (typeof result !== 'object')
-        this.showErrorMessage(result);
-    }
-  }
-
   resetErrorMessages() {
     this.setState((state) => ({
       errorEmail: '',
@@ -79,21 +70,31 @@ export default class Register extends Component {
         errorPassword: 'Введенные пароли не совпадают',
         errorPasswordConfirm: 'Введенные пароли не совпадают'
       }));
-      return true;
+      return false;
     }
+    return true;
   }
 
   showErrorMessage(code) {
     this.resetErrorMessages();
-    if (code == 'auth/email-already-in-use') {
+    if (code === 'auth/email-already-in-use') {
       this.setState((state) => ({
         errorEmail: 'Пользователь с таким адресом уже зарегистрирован'
       }));
-    } else if (code == 'auth/weak-password') {
+    } else if (code === 'auth/weak-password') {
       this.setState((state) => ({
         errorPassword: 'Слишком простой пароль',
-        errorPasswordConfirm: 'Слишком простой пароль',
+        errorPasswordConfirm: 'Слишком простой пароль'
       }));
+    }
+  }
+
+  async handleFormSubmit(evt) {
+    evt.preventDefault();
+    if (this.validate()) {
+      const result = await register(this.formData.email, this.formData.password);
+      if (typeof result !== 'object')
+        this.showErrorMessage(result);
     }
   }
 
@@ -106,7 +107,7 @@ export default class Register extends Component {
           <h1>Регистрация</h1>
           <form onSubmit={this.handleFormSubmit}>
             <div className='field'>
-              <lable className='label'>Адрес электронной почты</lable>
+              <label className='label'>Адрес электронной почты</label>
               <div className='control'>
                 <input type='email' className='input' onChange={this.handleEmailChange} /> 
               </div>
@@ -117,7 +118,7 @@ export default class Register extends Component {
               }
             </div>
             <div className='field'>
-              <lable className='label'>Пароль</lable>
+              <label className='label'>Пароль</label>
               <div className='control'>
                 <input type='password' className='input' onChange={this.handlePasswordChange} /> 
               </div>
@@ -128,7 +129,7 @@ export default class Register extends Component {
               }
             </div>
             <div className='field'>
-              <label className='lavel'>Повтор пароля</label>
+              <label className='label'>Повтор пароля</label>
               <div className='control'>
                 <input type='password' className='input' onChange={this.handlePasswordConfirmChange} />
               </div>
